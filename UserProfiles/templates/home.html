@@ -30,25 +30,33 @@
     {% comment %} {% include 'show_books.html' with books=books %} {% endcomment %}
 </div>
 
-<section class="main-home container-fluid">
-  <div class=" row d-flex justify-content-center gy-4">
+
+
+<section class="main-home container-fluid mb-4">
+  <div class="my-5 text-success">
+    <h2>User's Activities</h2>
+    <hr>
+  </div>
+  <div class="row d-flex justify-content-center gy-4">
 
     {% for task in taskHome %}
-    <div class="col-md-4">
+    <div class="col-md-12">
       <div class="card">
         <div class="card-header d-flex align-items-center">
-          <span class="avatar text-bg-primary avatar-lg fs-5">R</span>
-          <div class="text-center mb-3">
-           asd {{ac.gender}}
-            {% comment %} <img src="{{ac.image}}" class="img-fluid rounded-circle" alt="{{data.user.username}}" /> {% endcomment %}
+          {% comment %} <span class="avatar text-bg-primary avatar-lg fs-5">R</span> {% endcomment %}
+          <div class="text-center d-flex align-items-center">
+           {% comment %} asd {{ac.gender}} {% endcomment %}
+            <img src="{{task.user.account.image}}" class="img-fluid rounded-circle" height="50" width="50" alt="{{data.user.username}}" />
           </div>
           <div class="ms-3">
-            <h6 class="mb-0 fs-sm">{{task.user.username}}</h6>
-            <span class="text-muted fs-sm">September 14, 2022</span>
+            <h6 class="mb-0 fs-sm text-success">{{task.user.first_name}} {{task.user.last_name}} ({{task.user.username}})</h6>
+            
+            <span class="text-muted fs-sm">{{task.created_at}}</span>
           </div>
           <div class="dropstart ms-auto">
+            <p class="text-success fs-sm">User Point: {{task.user.account.points}}</p>
             <button class="btn text-muted" type="btn" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fas fa-ellipsis-v"></i>
+              <i class="fas fa-ellipsis-v"></i> 
             </button>
             <ul class="dropdown-menu">
               <li>
@@ -58,21 +66,44 @@
             </ul>
           </div>
         </div>
-        <img src="/images/cards/2.jpg" class="card-img-top" alt="green iguana" />
+        {% comment %} <img src="/images/cards/2.jpg" class="card-img-top" alt="green iguana" /> {% endcomment %}
         <div class="card-body">
           <p class="card-text">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your guests. 
-          Add 1 cup of frozen peas along with the mussels, if you like.
+          
+            <div class="card-body">
+              {% if task.complete %}
+                <h5 class="card-title">Status: <span class="text-success">Completed</span></h5>
+              {% else %}
+                <h5 class="card-title">Status: <span class="text-danger">Pending</span></h5>
+              {% endif %}
+              <p class="card-text">
+                Topics: {{task.topics}}
+              </p>
+              <h4 class="card-text">            
+                Skills: 
+                {% if task.skill_category.all %}
+                  
+                    {% for skill in task.skill_category.all %}
+                      <button type="button" class="btn btn-primary btn-sm" disabled>{{ skill.skill }}</button> 
+                    {% endfor %}
+                  
+                {% else %}
+                  No skills assigned.
+                {% endif %}</h4>
+              </div>
+            
           </p>
         </div>
-        <div class="card-footer d-flex">
+        {% comment %} <div class="card-footer d-flex">
           <button class="btn btn-link p-0 me-auto fw-bold" href="#">Action</button>
           <button class="btn btn-subtle" type="button"><i class="fas fa-heart fa-lg"></i></button>
           <button class="btn btn-subtle" type="button"><i class="fas fa-share fa-lg"></i></button>
-        </div>
+        </div> {% endcomment %}
       </div>
     </div>
+    <hr>
     {% endfor %}
+    
   </div>
 </section>
 

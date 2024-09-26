@@ -2,8 +2,8 @@
 {% load crispy_forms_tags %} 
 {% block content %}
 
-<div class="my-4">
-<form class="mx-auto w-50 p-5 shadow" method="post">
+<div class="m-5">
+<form class="mx-auto w-100 p-5 shadow" method="post">
   <h1>Add Job Position Info</h1>
   {% csrf_token %}
   {{ form | crispy }}

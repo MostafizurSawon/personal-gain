@@ -34,7 +34,13 @@ class UserAccount(models.Model):
       ('Other', 'Other'),
     ]
     
-    images = ['https://img.freepik.com/free-photo/androgynous-avatar-non-binary-queer-person_23-2151100207.jpg','https://img.freepik.com/free-photo/cartoon-character-with-handbag-sunglasses_71767-99.jpg','https://img.freepik.com/free-photo/anime-style-character-space_23-2151134190.jpg', 'https://img.freepik.com/premium-photo/poster-anime-character-with-fiery-background_943629-32000.jpg']
+    images = [
+      'https://img.freepik.com/free-photo/androgynous-avatar-non-binary-queer-person_23-2151100207.jpg',
+      'https://img.freepik.com/free-photo/cartoon-character-with-handbag-sunglasses_71767-99.jpg',
+      'https://img.freepik.com/free-photo/anime-style-character-space_23-2151134190.jpg', 
+      'https://img.freepik.com/premium-photo/poster-anime-character-with-fiery-background_943629-32000.jpg',
+      'https://img.freepik.com/free-photo/androgynous-avatar-non-binary-queer-person_23-2151100183.jpg'
+      ]
     
     # print(random.choice(images))
   

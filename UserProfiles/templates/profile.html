@@ -314,7 +314,7 @@
               <div class="card-header text-bg-primary">Welcome, {{data.user.username}}</div>
               <div class="card-body">
                 <div class="text-center mb-3">
-                  <img src="{{data.image}}" class="img-fluid rounded-circle" alt="{{data.user.username}}" />
+                  <img src="{{data.image}}" class="img-fluid rounded-circle"  alt="{{data.user.username}}" />
                 </div>
                 <h5 class="text-center mb-1">{{data.user.first_name}} {{data.user.last_name}}</h5>
                 <p class="text-center text-secondary mb-4">{{data.position}}</p>
@@ -402,14 +402,16 @@
             <div class="card widget-card border-light shadow-sm">
               <div class="card-header text-bg-primary">Skills</div>
               <div class="card-body">
-                <span class="badge text-bg-primary">HTML</span>
+                Coming soon
+                <img class="img-fluid" src="https://giffiles.alphacoders.com/221/221781.gif" alt="">
+                {% comment %} <span class="badge text-bg-primary">HTML</span>
                 <span class="badge text-bg-primary">SCSS</span>
                 <span class="badge text-bg-primary">Javascript</span>
                 <span class="badge text-bg-primary">React</span>
                 <span class="badge text-bg-primary">Vue</span>
                 <span class="badge text-bg-primary">Angular</span>
                 <span class="badge text-bg-primary">UI</span>
-                <span class="badge text-bg-primary">UX</span>
+                <span class="badge text-bg-primary">UX</span> {% endcomment %}
               </div>
             </div>
           </div>
@@ -483,7 +485,15 @@
                         <h6 class="text-danger">Pending Date: {{t.pending_date}}</h6>
                       </div>
                       <div class="card-footer d-flex justify-content-between">
-                        <a href="{% url 'update_task' t.pk %}"><button type="button" class="btn btn-outline-success px-5">Edit</button></a>
+
+                        {% if not t.complete %}
+                          <a href="{% url 'update_task' t.pk %}">
+                            <button type="button" class="btn btn-outline-success px-5">Edit</button>
+                          </a>
+                        {% else %}
+                          <button type="button" class="btn btn-outline-success px-5" disabled>Edit</button>
+                        {% endif %}
+
                         <button type="button" class="btn btn-outline-danger px-5" disabled>Delete</button>
                         
                       </div>

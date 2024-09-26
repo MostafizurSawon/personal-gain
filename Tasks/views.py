@@ -57,17 +57,21 @@ def add_task_form(request):
     if request.method == "POST":
         form = UserTaskForm(request.POST)
         if form.is_valid():
+            task = form.save(commit=False)  # Don't save yet, modify the object first
+            task.user = request.user        # Assign the logged-in user
+            task.save()                     # Now save the task
+          
             user_account = UserAccount.objects.get(user=request.user)
             user_account.points += 20
             user_account.save()
-            form.save()
+
             return redirect("profile")
         else:
             return render(request, "add-info.html", {"form": form, "type": "Add new Task"})
     else:
         form = UserTaskForm()
         return render(request, "add-info.html", {"form": form, "type": "Add new Task"})
-    
+
     
 @login_required
 def add_category_form(request):
