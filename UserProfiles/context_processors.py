@@ -1,4 +1,5 @@
 from .models import UserAccount, UserEducation, UserSocialAccount
+from Tasks.models import Task
 from django.shortcuts import get_object_or_404
 from django.db import IntegrityError
 import random
@@ -24,15 +25,21 @@ def user_data(request):
             user_education, created = UserEducation.objects.get_or_create(
                 user=request.user
             )
+            
+            # task, created = Task.objects.get_or_create(
+            #     user=request.user
+            # )
+            tasks=Task.objects.filter(user=request.user)
 
             # Add these objects to the context so they can be used in templates
             return {
                 'data': user_account,
                 'user_social_account': user_social_account,
                 'user_education': user_education,
+                # 'tasks': tasks,
             }
 
-        except (UserAccount.DoesNotExist, UserSocialAccount.DoesNotExist, UserEducation.DoesNotExist):
+        except (UserAccount.DoesNotExist, UserSocialAccount.DoesNotExist, UserEducation.DoesNotExist,Task.DoesNotExist):
             # If any of the objects don't exist or creation fails, return an empty context
             return {}
 

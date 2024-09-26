@@ -7,6 +7,7 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import UserProfileForm, UserJobForm, UserSocialForm
 from .models import UserAccount, UserEducation, UserSocialAccount
+from Tasks.models import Task
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import random
@@ -93,14 +94,24 @@ def user_logout(request):
 @login_required
 def MyProfile(request):
 #   data = UserAccount.objects.all()
-  data = get_object_or_404(UserAccount, user=request.user)
-  social = get_object_or_404(UserSocialAccount, user=request.user)
-  edu = get_object_or_404(UserEducation, user=request.user)
-  print("hello",data)
-  if data:
-    return render(request, 'profile.html',  {'data': data, 'social': social, 'edu':edu})
-  else:
-    return render(request, 'profile.html')
+    data = get_object_or_404(UserAccount, user=request.user)
+    social = get_object_or_404(UserSocialAccount, user=request.user)
+    edu = get_object_or_404(UserEducation, user=request.user)
+    tasks = Task.objects.filter(user=request.user)
+    a = Task.objects.filter(user=request.user)
+    c = tasks.filter(complete=True, user=request.user)
+    p = tasks.filter(complete=False, user=request.user)
+    complete = request.GET.get("complete")
+    print(complete)
+    if complete == "1":
+        tasks = tasks.filter(complete=True, user=request.user)
+    elif complete == "0":
+        tasks = tasks.filter(complete=False, user=request.user)
+    print("hello",data)
+    if data:
+        return render(request, 'profile.html',  {'data': data, 'social': social, 'edu':edu, 'tasks': tasks, 'complete':len(c), 'pending':len(p), 'all':len(a)})
+    else:
+        return render(request, 'profile.html')
 
 @login_required
 def add_profile_info_form(request):
